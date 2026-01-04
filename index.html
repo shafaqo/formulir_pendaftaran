@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Les Rafah</title>
+    <title>Pendaftaran Les Rafah - Belajar Itu Seru!</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- HTML2Canvas & JSPDF -->
@@ -25,11 +25,28 @@
                         display: ['Fredoka', 'sans-serif'],
                     },
                     colors: {
-                        rafah: {
-                            blue: '#4ADE80',
-                            yellow: '#FCD34D',
-                            orange: '#FB923C',
-                            primary: '#3B82F6'
+                        kid: {
+                            blue: '#4CC9F0',
+                            purple: '#7209B7',
+                            pink: '#F72585',
+                            yellow: '#FFD60A',
+                            orange: '#FB5607',
+                            paper: '#FFFDF5'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
                         }
                     }
                 }
@@ -37,146 +54,272 @@
         }
     </script>
     <style>
-        body { background-color: #FEF3C7; } /* Kuning muda */
+        body { 
+            background-color: #4CC9F0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.2) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.2) 2px, transparent 2px);
+            background-size: 40px 40px;
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Dekorasi Awan */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            z-index: -1;
+            opacity: 0.8;
+        }
+        .cloud::after, .cloud::before {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #F72585; border-radius: 10px; }
+
+        /* Input Style yang lebih 'chunky' */
+        .input-fun {
+            transition: all 0.3s;
+            border: 3px solid #e5e7eb;
+        }
+        .input-fun:focus {
+            transform: scale(1.02);
+            border-color: #4CC9F0;
+            box-shadow: 0 4px 0 #4CC9F0; /* Efek 3D */
+        }
+        
+        /* Tombol 3D */
+        .btn-3d {
+            transition: all 0.1s;
+            border-bottom: 6px solid rgba(0,0,0,0.2);
+        }
+        .btn-3d:active {
+            transform: translateY(4px);
+            border-bottom: 2px solid rgba(0,0,0,0.2);
+        }
+
+        /* Pola Kartu */
         .card-pattern {
             background-image: radial-gradient(#ffffff 20%, transparent 20%), radial-gradient(#ffffff 20%, transparent 20%);
-            background-color: #FBBF24;
-            background-position: 0 0, 50px 50px;
+            background-color: #FFD60A;
+            background-position: 0 0, 10px 10px;
             background-size: 20px 20px;
         }
-        /* Loader Overlay */
-        #loader { display: none; }
     </style>
 </head>
-<body class="text-gray-700 pb-20">
+<body class="pb-20 relative">
 
-    <!-- Navbar Mobile -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50 rounded-b-3xl">
-        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl font-display">R</div>
-                <h1 class="text-xl font-bold font-display text-blue-600">Les Rafah</h1>
+    <!-- Ornamen Background Melayang -->
+    <div class="fixed top-10 left-[-20px] text-yellow-300 text-6xl animate-spin-slow opacity-50 pointer-events-none z-0"><i class="fa-solid fa-sun"></i></div>
+    <div class="fixed bottom-20 right-[-20px] text-pink-300 text-6xl animate-float opacity-50 pointer-events-none z-0" style="animation-delay: 1s;"><i class="fa-solid fa-rocket"></i></div>
+    <div class="fixed top-40 right-10 text-white text-4xl animate-pulse opacity-40 pointer-events-none z-0"><i class="fa-solid fa-star"></i></div>
+    <div class="fixed top-1/2 left-5 text-green-300 text-5xl animate-float opacity-40 pointer-events-none z-0" style="animation-delay: 0.5s;"><i class="fa-solid fa-shapes"></i></div>
+
+    <!-- Dekorasi Awan -->
+    <div class="cloud w-32 h-12 top-5 left-10"></div>
+    <div class="cloud w-48 h-16 top-20 right-5"></div>
+
+    <!-- Navbar Mobile (Floating Island Style) -->
+    <nav class="sticky top-4 z-50 px-4">
+        <div class="max-w-md mx-auto bg-white/90 backdrop-blur-sm rounded-full shadow-xl border-4 border-white flex justify-between items-center px-2 py-2">
+            <div class="flex items-center space-x-3 pl-2">
+                <div class="w-12 h-12 bg-kid-yellow rounded-full flex items-center justify-center text-kid-purple border-4 border-kid-purple shadow-sm animate-wiggle">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black font-display text-kid-purple tracking-wide">Les Rafah</h1>
+                    <p class="text-[10px] font-bold text-gray-400 -mt-1">Sahabat Belajar Anak</p>
+                </div>
             </div>
-            <button onclick="toggleAdminPanel()" class="text-gray-400 hover:text-blue-500">
-                <i class="fa-solid fa-user-gear text-xl"></i>
+            <button onclick="toggleAdminPanel()" class="w-10 h-10 bg-gray-100 rounded-full text-gray-400 hover:text-kid-blue hover:bg-blue-50 transition-colors flex items-center justify-center">
+                <i class="fa-solid fa-user-gear text-lg"></i>
             </button>
         </div>
     </nav>
 
     <!-- Main Content Container -->
-    <div class="max-w-md mx-auto px-4 mt-6 space-y-6">
+    <div class="max-w-md mx-auto px-4 mt-8 space-y-8 relative z-10">
 
         <!-- Hero Section -->
-        <div id="homeSection" class="text-center space-y-2">
-            <div class="inline-block p-3 bg-white rounded-full shadow-md mb-2 animate-bounce">
-                <span class="text-4xl">🚀</span>
+        <div id="homeSection" class="text-center space-y-4">
+            <div class="relative inline-block">
+                <div class="absolute inset-0 bg-kid-yellow rounded-full transform rotate-6 scale-110 opacity-50 blur-lg"></div>
+                <div class="relative bg-white p-4 rounded-3xl shadow-lg border-b-8 border-gray-200 animate-float">
+                    <span class="text-6xl">🎒</span>
+                </div>
+                <!-- Badge 'New' -->
+                <div class="absolute -top-2 -right-2 bg-kid-pink text-white text-xs font-bold px-2 py-1 rounded-full transform rotate-12 border-2 border-white">
+                    Seru!
+                </div>
             </div>
-            <h2 class="text-3xl font-bold font-display text-orange-500">Ayo Belajar!</h2>
-            <p class="text-gray-600 text-sm">Daftarkan buah hati Anda untuk masa depan yang cerah bersama Les Rafah.</p>
+            
+            <div class="bg-white/30 backdrop-blur-sm p-4 rounded-2xl border-2 border-white/50">
+                <h2 class="text-3xl font-black font-display text-white drop-shadow-md tracking-wide">Ayo Belajar!</h2>
+                <p class="text-white font-bold text-sm mt-1 text-shadow-sm">Daftarkan buah hati Anda untuk masa depan cerah & ceria bersama kami.</p>
+            </div>
         </div>
 
         <!-- Form Pendaftaran -->
-        <div id="formSection" class="bg-white p-6 rounded-3xl shadow-xl border-b-8 border-blue-200">
-            <h3 class="text-xl font-bold mb-4 text-blue-600 border-b pb-2"><i class="fa-solid fa-pen-to-square mr-2"></i>Formulir Pendaftaran</h3>
-            
-            <form id="regForm" onsubmit="submitRegistration(event)" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-bold text-gray-600 mb-1">Nama Anak</label>
-                    <input type="text" name="namaAnak" required class="w-full bg-blue-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Contoh: Budi Santoso">
+        <div id="formSection" class="bg-kid-paper p-1 rounded-[2.5rem] shadow-2xl relative">
+            <!-- Hiasan Binder -->
+            <div class="absolute -left-1 top-10 bottom-10 flex flex-col justify-between z-20">
+                <div class="w-4 h-4 bg-gray-300 rounded-full border border-gray-400 shadow"></div>
+                <div class="w-4 h-4 bg-gray-300 rounded-full border border-gray-400 shadow"></div>
+                <div class="w-4 h-4 bg-gray-300 rounded-full border border-gray-400 shadow"></div>
+                <div class="w-4 h-4 bg-gray-300 rounded-full border border-gray-400 shadow"></div>
+            </div>
+
+            <div class="bg-white border-4 border-kid-yellow p-6 rounded-[2rem] h-full">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-black font-display text-kid-purple inline-block border-b-4 border-kid-pink pb-1">
+                        Formulir
+                    </h3>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-600 mb-1">Tanggal Lahir</label>
-                        <input type="date" name="tglLahir" required class="w-full bg-blue-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-400 outline-none">
+                <form id="regForm" onsubmit="submitRegistration(event)" class="space-y-5">
+                    
+                    <!-- Nama Anak -->
+                    <div class="group">
+                        <label class="block text-sm font-black text-kid-blue mb-2 pl-2"><i class="fa-solid fa-child mr-2"></i>Nama Lengkap Anak</label>
+                        <input type="text" name="namaAnak" required 
+                            class="input-fun w-full bg-blue-50 rounded-2xl px-5 py-4 font-bold text-gray-700 placeholder-blue-300 focus:outline-none" 
+                            placeholder="Contoh: Budi Santoso">
                     </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-600 mb-1">Tgl Gabung</label>
-                        <input type="date" name="tglGabung" id="tglGabungInput" required class="w-full bg-green-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-400 outline-none">
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Tgl Lahir -->
+                        <div>
+                            <label class="block text-xs font-black text-kid-pink mb-2 pl-2"><i class="fa-solid fa-cake-candles mr-1"></i>Tgl Lahir</label>
+                            <input type="date" name="tglLahir" required 
+                                class="input-fun w-full bg-pink-50 rounded-2xl px-3 py-3 font-bold text-gray-600 focus:outline-none text-sm">
+                        </div>
+                        <!-- Tgl Gabung -->
+                        <div>
+                            <label class="block text-xs font-black text-kid-orange mb-2 pl-2"><i class="fa-solid fa-calendar-check mr-1"></i>Mulai Les</label>
+                            <input type="date" name="tglGabung" id="tglGabungInput" required 
+                                class="input-fun w-full bg-orange-50 rounded-2xl px-3 py-3 font-bold text-gray-600 focus:outline-none text-sm">
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-600 mb-1">Alamat Domisili</label>
-                    <textarea name="alamat" required rows="2" class="w-full bg-blue-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Alamat lengkap..."></textarea>
-                </div>
+                    <!-- Alamat -->
+                    <div>
+                        <label class="block text-sm font-black text-green-500 mb-2 pl-2"><i class="fa-solid fa-map-location-dot mr-2"></i>Alamat Rumah</label>
+                        <textarea name="alamat" required rows="2" 
+                            class="input-fun w-full bg-green-50 rounded-2xl px-5 py-3 font-bold text-gray-700 placeholder-green-300 focus:outline-none" 
+                            placeholder="Tulis alamat lengkap disini ya..."></textarea>
+                    </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-600 mb-1">Nama Orang Tua/Wali</label>
-                    <input type="text" name="namaWali" required class="w-full bg-yellow-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-yellow-400 outline-none" placeholder="Nama Ayah/Ibu">
-                </div>
+                    <!-- Ortu -->
+                    <div>
+                        <label class="block text-sm font-black text-purple-500 mb-2 pl-2"><i class="fa-solid fa-user-shield mr-2"></i>Nama Ayah / Ibu</label>
+                        <input type="text" name="namaWali" required 
+                            class="input-fun w-full bg-purple-50 rounded-2xl px-5 py-4 font-bold text-gray-700 placeholder-purple-300 focus:outline-none" 
+                            placeholder="Nama Orang Tua">
+                    </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-600 mb-1">Nomor HP / WA</label>
-                    <input type="tel" name="noHp" required class="w-full bg-yellow-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-yellow-400 outline-none" placeholder="0812...">
-                </div>
+                    <!-- HP -->
+                    <div>
+                        <label class="block text-sm font-black text-gray-500 mb-2 pl-2"><i class="fa-brands fa-whatsapp mr-2 text-green-500"></i>Nomor WhatsApp</label>
+                        <input type="tel" name="noHp" required 
+                            class="input-fun w-full bg-gray-50 rounded-2xl px-5 py-4 font-bold text-gray-700 placeholder-gray-300 focus:outline-none" 
+                            placeholder="0812...">
+                    </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-600 mb-1">Pilih Program Paket</label>
-                    <select name="paket" id="paketSelect" required class="w-full bg-purple-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none appearance-none">
-                        <option value="">Memuat Paket...</option>
-                    </select>
-                    <p class="text-xs text-gray-400 mt-1">*Bisa diganti nanti</p>
-                </div>
+                    <!-- Paket -->
+                    <div class="relative">
+                        <label class="block text-sm font-black text-kid-yellow mb-2 pl-2"><i class="fa-solid fa-book-open mr-2"></i>Mau Belajar Apa?</label>
+                        <div class="relative">
+                            <select name="paket" id="paketSelect" required 
+                                class="input-fun w-full bg-yellow-50 rounded-2xl px-5 py-4 font-bold text-gray-700 focus:outline-none appearance-none cursor-pointer">
+                                <option value="">Sedang memuat paket...</option>
+                            </select>
+                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-kid-yellow">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 text-center font-bold bg-gray-100 rounded-full py-1">✨ Pilih paket belajar yang disukai ✨</p>
+                    </div>
 
-                <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-4 rounded-xl shadow-lg transform active:scale-95 transition-all hover:shadow-xl mt-4">
-                    <i class="fa-solid fa-paper-plane mr-2"></i> Daftar Sekarang
-                </button>
-            </form>
+                    <!-- Button Submit -->
+                    <button type="submit" class="w-full btn-3d bg-kid-blue hover:bg-blue-400 text-white font-black font-display text-xl py-4 rounded-2xl shadow-lg mt-6 flex items-center justify-center group">
+                        <span>Daftar Sekarang</span>
+                        <i class="fa-solid fa-paper-plane ml-3 group-hover:translate-x-2 transition-transform"></i>
+                    </button>
+                </form>
+            </div>
         </div>
 
-        <!-- Admin Panel (Hidden by default) -->
+        <!-- Admin Panel (Disembunyikan) -->
         <div id="adminPanel" class="hidden space-y-6">
-            <div class="bg-white p-6 rounded-3xl shadow-xl border-b-8 border-purple-200">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-600"><i class="fa-solid fa-lock mr-2"></i>Admin Area</h3>
-                    <button onclick="logoutAdmin()" class="text-sm text-red-500 hover:underline">Keluar</button>
+            <div class="bg-white p-6 rounded-3xl shadow-xl border-4 border-gray-200">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b-2 border-dashed border-gray-200">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-white">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-gray-800">Admin Area</h3>
+                            <p class="text-xs text-gray-400">Khusus Pengurus</p>
+                        </div>
+                    </div>
+                    <button onclick="logoutAdmin()" class="bg-red-100 text-red-500 px-4 py-2 rounded-xl font-bold text-xs hover:bg-red-200 transition-colors">
+                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
+                    </button>
                 </div>
 
                 <!-- Tabs -->
-                <div class="flex space-x-2 mb-4 bg-gray-100 p-1 rounded-lg">
-                    <button onclick="switchTab('siswa')" id="tabBtnSiswa" class="flex-1 py-2 rounded-md bg-white shadow-sm text-sm font-bold text-gray-700">Data Siswa</button>
-                    <button onclick="switchTab('paket')" id="tabBtnPaket" class="flex-1 py-2 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200">Kelola Paket</button>
+                <div class="flex space-x-3 mb-6 bg-gray-100 p-2 rounded-2xl">
+                    <button onclick="switchTab('siswa')" id="tabBtnSiswa" class="flex-1 py-3 rounded-xl bg-white shadow-sm text-sm font-black text-kid-blue border-2 border-transparent">Siswa</button>
+                    <button onclick="switchTab('paket')" id="tabBtnPaket" class="flex-1 py-3 rounded-xl text-sm font-bold text-gray-400 hover:bg-gray-200">Paket</button>
                 </div>
 
                 <!-- Tab: Siswa -->
-                <div id="tabSiswa" class="block">
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="font-bold text-sm">Daftar Pendaftar</h4>
-                        <button onclick="loadStudents()" class="text-blue-500 text-xs"><i class="fa-solid fa-sync"></i> Refresh</button>
+                <div id="tabSiswa" class="block animate-fade-in">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-gray-600"><i class="fa-solid fa-users mr-2"></i>Data Pendaftar</h4>
+                        <button onclick="loadStudents()" class="text-kid-blue text-xs font-bold bg-blue-50 px-3 py-1 rounded-full"><i class="fa-solid fa-sync animate-spin-slow"></i> Refresh</button>
                     </div>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto bg-gray-50 rounded-xl border-2 border-gray-100 p-2">
                         <table class="w-full text-xs text-left">
-                            <thead class="bg-gray-100 text-gray-600 uppercase font-bold">
+                            <thead class="text-gray-400 uppercase font-black text-[10px]">
                                 <tr>
                                     <th class="px-2 py-2">ID</th>
                                     <th class="px-2 py-2">Nama</th>
                                     <th class="px-2 py-2">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="studentTableBody" class="divide-y divide-gray-100">
-                                <tr><td colspan="3" class="text-center py-2">Memuat data...</td></tr>
+                            <tbody id="studentTableBody" class="divide-y divide-gray-200">
+                                <tr><td colspan="3" class="text-center py-4 font-bold text-gray-400">Memuat data...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
                 <!-- Tab: Paket -->
-                <div id="tabPaket" class="hidden">
-                    <form onsubmit="addPackage(event)" class="mb-4 bg-purple-50 p-3 rounded-xl">
-                        <h4 class="font-bold text-xs mb-2">Tambah Paket Baru</h4>
-                        <input type="text" id="newPkgName" placeholder="Nama Program" class="w-full mb-2 p-2 rounded border border-purple-200 text-xs" required>
-                        <input type="text" id="newPkgPrice" placeholder="Harga" class="w-full mb-2 p-2 rounded border border-purple-200 text-xs" required>
-                        <button type="submit" class="w-full bg-purple-500 text-white py-1 rounded text-xs font-bold">Simpan</button>
+                <div id="tabPaket" class="hidden animate-fade-in">
+                    <form onsubmit="addPackage(event)" class="mb-6 bg-purple-50 p-4 rounded-2xl border-2 border-purple-100">
+                        <h4 class="font-black text-purple-600 text-sm mb-3"><i class="fa-solid fa-plus-circle mr-2"></i>Tambah Paket Baru</h4>
+                        <div class="space-y-3">
+                            <input type="text" id="newPkgName" placeholder="Nama Program (Mis: Calistung)" class="w-full p-3 rounded-xl border-2 border-purple-100 text-xs font-bold focus:border-purple-300 outline-none" required>
+                            <input type="text" id="newPkgPrice" placeholder="Harga (Mis: 50.000)" class="w-full p-3 rounded-xl border-2 border-purple-100 text-xs font-bold focus:border-purple-300 outline-none" required>
+                            <button type="submit" class="w-full bg-purple-500 hover:bg-purple-600 text-white py-3 rounded-xl text-xs font-black shadow-lg btn-3d">SIMPAN PAKET</button>
+                        </div>
                     </form>
                     
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto bg-white rounded-xl border-2 border-gray-100">
                         <table class="w-full text-xs text-left">
-                            <thead class="bg-gray-100 text-gray-600 uppercase font-bold">
+                            <thead class="bg-gray-50 text-gray-500 uppercase font-bold">
                                 <tr>
-                                    <th class="px-2 py-2">Program</th>
-                                    <th class="px-2 py-2">Harga</th>
-                                    <th class="px-2 py-2">Hapus</th>
+                                    <th class="px-3 py-2">Program</th>
+                                    <th class="px-3 py-2">Harga</th>
+                                    <th class="px-3 py-2">Hapus</th>
                                 </tr>
                             </thead>
                             <tbody id="packageTableBody" class="divide-y divide-gray-100">
@@ -190,73 +333,81 @@
 
     </div>
 
-    <!-- Hidden Card Template for Generation -->
+    <!-- Hidden Card Template (Re-styled for Kids) -->
     <div style="position: absolute; left: -9999px; top: 0;">
-        <div id="cardTemplate" class="w-[350px] h-[220px] relative rounded-2xl overflow-hidden shadow-2xl font-sans text-white">
+        <div id="cardTemplate" class="w-[350px] h-[220px] relative rounded-2xl overflow-hidden shadow-none font-sans text-white">
             <!-- Background -->
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-500 to-purple-600"></div>
-            <!-- Circles Decoration -->
-            <div class="absolute top-[-20px] left-[-20px] w-24 h-24 bg-yellow-400 rounded-full opacity-50"></div>
-            <div class="absolute bottom-[-10px] right-[-10px] w-32 h-32 bg-white opacity-10 rounded-full"></div>
+            <div class="absolute inset-0 bg-[#FFD60A]"></div>
+            <!-- Pattern -->
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#000 2px, transparent 2px); background-size: 15px 15px;"></div>
+            
+            <!-- Shapes Decoration -->
+            <div class="absolute top-[-40px] right-[-40px] w-40 h-40 bg-[#4CC9F0] rounded-full border-4 border-white"></div>
+            <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-[#F72585] rounded-full border-4 border-white opacity-90"></div>
             
             <!-- Content -->
             <div class="relative z-10 p-5 flex flex-col h-full justify-between">
                 <!-- Header -->
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2">
-                        <div class="bg-white text-blue-600 font-bold w-8 h-8 rounded-full flex items-center justify-center border-2 border-yellow-400 shadow">R</div>
+                    <div class="flex items-center space-x-2 bg-white/90 p-2 rounded-xl shadow-sm">
+                        <div class="bg-blue-500 text-white font-black w-8 h-8 rounded-lg flex items-center justify-center border-2 border-white shadow">R</div>
                         <div>
-                            <h2 class="text-lg font-bold font-display leading-tight text-white drop-shadow-md">LES RAFAH</h2>
-                            <p class="text-[8px] text-blue-100 tracking-wider">KARTU TANDA SISWA</p>
+                            <h2 class="text-sm font-black text-gray-800 leading-none">LES RAFAH</h2>
+                            <p class="text-[8px] font-bold text-gray-500 tracking-wider">KARTU PELAJAR</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <p class="text-[8px] font-mono text-blue-100">ID SISWA</p>
-                        <p id="cardId" class="text-sm font-bold bg-white/20 px-2 py-0.5 rounded text-white border border-white/30">RFH-0000</p>
+                        <p class="text-[8px] font-black text-gray-700 bg-white/50 px-2 py-1 rounded-full mb-1">ID SISWA</p>
+                        <p id="cardId" class="text-sm font-black text-white bg-black/20 px-3 py-1 rounded-lg border-2 border-white/30 tracking-widest font-mono">RFH-0000</p>
                     </div>
                 </div>
 
                 <!-- Main Info -->
-                <div class="flex mt-2">
+                <div class="flex mt-3 bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/40">
                     <div class="flex-1">
                         <div class="mb-2">
-                            <p class="text-[9px] text-blue-100 uppercase">Nama Siswa</p>
-                            <h3 id="cardName" class="text-xl font-bold text-white tracking-wide truncate max-w-[200px]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Nama Siswa</h3>
+                            <p class="text-[8px] text-gray-700 font-bold uppercase mb-0.5">Nama Siswa</p>
+                            <h3 id="cardName" class="text-lg font-black text-gray-800 tracking-wide truncate max-w-[180px] font-display" style="text-shadow: 1px 1px 0px #fff;">Nama Siswa</h3>
                         </div>
-                        <div class="flex space-x-4">
-                            <div>
-                                <p class="text-[8px] text-blue-100 uppercase">Program</p>
-                                <p id="cardPackage" class="text-xs font-semibold text-yellow-300">Matematika</p>
+                        <div class="flex space-x-2 mt-2">
+                            <div class="bg-blue-500/90 px-2 py-1 rounded-lg">
+                                <p class="text-[6px] text-white uppercase font-bold opacity-80">Program</p>
+                                <p id="cardPackage" class="text-[10px] font-bold text-white">Matematika</p>
                             </div>
-                            <div>
-                                <p class="text-[8px] text-blue-100 uppercase">Bergabung</p>
-                                <p id="cardDate" class="text-xs font-semibold">01/01/2024</p>
+                            <div class="bg-pink-500/90 px-2 py-1 rounded-lg">
+                                <p class="text-[6px] text-white uppercase font-bold opacity-80">Bergabung</p>
+                                <p id="cardDate" class="text-[10px] font-bold text-white">01/01/24</p>
                             </div>
                         </div>
                     </div>
                     <!-- Right Icon/Avatar Placeholder -->
-                    <div class="w-20 h-20 bg-white/20 rounded-xl border-2 border-dashed border-white/40 flex items-center justify-center">
-                        <i class="fa-solid fa-graduation-cap text-4xl text-white/60"></i>
+                    <div class="w-16 h-16 bg-white rounded-full border-4 border-[#4CC9F0] flex items-center justify-center shadow-md transform rotate-3">
+                        <i class="fa-solid fa-face-smile text-4xl text-yellow-400"></i>
                     </div>
                 </div>
 
                 <!-- Footer -->
-                <div class="mt-2 pt-2 border-t border-white/20 flex justify-between items-end">
-                    <p class="text-[8px] italic opacity-80">Mencerdaskan & Berakhlak Mulia</p>
+                <div class="mt-1 flex justify-between items-center">
+                    <p class="text-[8px] font-bold text-gray-700 italic bg-white/40 px-2 py-0.5 rounded-full">✨ Rajin Pangkal Pandai ✨</p>
                     <div class="flex items-center space-x-1">
-                         <div class="w-2 h-2 rounded-full bg-red-400"></div>
-                         <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
-                         <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                         <div class="w-2 h-2 rounded-full bg-white border border-gray-400"></div>
+                         <div class="w-2 h-2 rounded-full bg-white border border-gray-400"></div>
+                         <div class="w-2 h-2 rounded-full bg-white border border-gray-400"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Loading Overlay -->
-    <div id="loader" class="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center flex-col">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white mb-4"></div>
-        <p class="text-white font-bold animate-pulse">Memproses...</p>
+    <!-- Loading Overlay (Dibuat lebih lucu) -->
+    <div id="loader" class="fixed inset-0 bg-[#4CC9F0] z-[100] flex items-center justify-center flex-col hidden">
+        <div class="relative">
+             <div class="w-20 h-20 bg-white rounded-full animate-bounce flex items-center justify-center shadow-lg">
+                 <span class="text-4xl">🚀</span>
+             </div>
+             <div class="w-20 h-4 bg-black/10 rounded-full mt-4 blur-sm animate-pulse mx-auto"></div>
+        </div>
+        <p class="text-white font-black text-xl mt-6 font-display tracking-widest animate-pulse">Tunggu ya...</p>
     </div>
 
     <script>
@@ -276,14 +427,18 @@
         async function initApp() {
             showLoader(true);
             try {
-                // 1. Trigger Setup (Buat Header Otomatis jika belum ada)
+                // 1. Trigger Setup
                 await fetch(`${WEB_APP_URL}?action=setup`);
-                
-                // 2. Load Data Paket untuk Dropdown
+                // 2. Load Data Paket
                 loadPackages();
             } catch (error) {
                 console.error("Init Error:", error);
-                Swal.fire("Error", "Gagal menghubungi server. Pastikan URL benar.", "error");
+                Swal.fire({
+                    title: "Ups!", 
+                    text: "Gagal menghubungi server. Coba reload ya.", 
+                    icon: "error",
+                    confirmButtonColor: '#F72585'
+                });
             } finally {
                 showLoader(false);
             }
@@ -297,13 +452,13 @@
                 const res = await fetch(`${WEB_APP_URL}?action=getPackages`);
                 const json = await res.json();
                 const select = document.getElementById('paketSelect');
-                select.innerHTML = '<option value="">-- Pilih Paket --</option>';
+                select.innerHTML = '<option value="">-- Pilih Paket Belajar --</option>';
                 
                 if(json.status === 'success') {
                     json.data.forEach(pkg => {
                         const opt = document.createElement('option');
                         opt.value = pkg['Nama Program'];
-                        opt.textContent = `${pkg['Nama Program']} - ${pkg['Harga']}`;
+                        opt.textContent = `${pkg['Nama Program']} (Rp ${pkg['Harga']})`;
                         select.appendChild(opt);
                     });
                 }
@@ -314,6 +469,20 @@
 
         async function submitRegistration(e) {
             e.preventDefault();
+            
+            // Validasi sederhana
+            const paket = document.getElementById('paketSelect').value;
+            if(!paket) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Pilih Paket Dulu',
+                    text: 'Adik mau belajar apa? Pilih dulu ya!',
+                    confirmButtonColor: '#FFD60A',
+                    confirmButtonText: 'Oke Siap!'
+                });
+                return;
+            }
+
             showLoader(true);
 
             const formData = new FormData(e.target);
@@ -344,13 +513,15 @@
                     );
 
                     Swal.fire({
-                        title: 'Berhasil!',
-                        text: 'Pendaftaran sukses. Kartu siswa telah didownload.',
+                        title: 'Hore Berhasil! 🎉',
+                        text: 'Pendaftaran sukses. Kartu siswa sedang didownload.',
                         icon: 'success',
-                        confirmButtonText: 'OK'
+                        confirmButtonText: 'Asyik!',
+                        confirmButtonColor: '#4CC9F0',
+                        background: '#fff url("https://www.transparenttextures.com/patterns/cubes.png")'
                     });
                 } else {
-                    Swal.fire('Gagal', result.message, 'error');
+                    Swal.fire('Yah Gagal...', result.message, 'error');
                 }
             } catch (error) {
                 Swal.fire('Error', 'Terjadi kesalahan koneksi', 'error');
@@ -360,35 +531,30 @@
         }
 
         async function generateAndDownloadCard(name, id, paket, date) {
-            // Isi Data ke Template Tersembunyi
             document.getElementById('cardName').textContent = name;
             document.getElementById('cardId').textContent = id;
             document.getElementById('cardPackage').textContent = paket;
             document.getElementById('cardDate').textContent = date;
 
-            // Tunggu sebentar render DOM
             await new Promise(r => setTimeout(r, 500));
-
             const element = document.getElementById('cardTemplate');
             
             try {
-                const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+                const canvas = await html2canvas(element, { scale: 3, useCORS: true, backgroundColor: null });
                 const imgData = canvas.toDataURL('image/png');
                 
-                // Gunakan JSPDF untuk membuat PDF siap cetak
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF({
                     orientation: 'landscape',
                     unit: 'mm',
-                    format: [85.6, 54] // Ukuran Kartu ID Standar (CR-80)
+                    format: [85.6, 54]
                 });
 
                 doc.addImage(imgData, 'PNG', 0, 0, 85.6, 54);
-                doc.save(`Kartu_Siswa_${name.replace(/\s+/g, '_')}.pdf`);
+                doc.save(`Kartu_Les_${name.replace(/\s+/g, '_')}.pdf`);
 
             } catch (err) {
                 console.error("Gagal buat kartu:", err);
-                Swal.fire("Info", "Data tersimpan, tapi gagal membuat kartu otomatis. Silahkan minta admin mencetak ulang.", "warning");
             }
         }
 
@@ -397,20 +563,27 @@
         // ==========================================
         function toggleAdminPanel() {
             Swal.fire({
-                title: 'Masuk Admin',
+                title: 'Halo Admin!',
+                text: 'Masukkan kode rahasia',
                 input: 'password',
-                inputPlaceholder: 'Masukkan Sandi (112211)',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
                 showCancelButton: true,
-                confirmButtonText: 'Masuk',
-                confirmButtonColor: '#3B82F6'
+                confirmButtonText: 'Buka Pintu',
+                confirmButtonColor: '#7209B7',
+                showLoaderOnConfirm: true,
             }).then((result) => {
                 if (result.isConfirmed) {
                     if (result.value === '112211') {
                         document.getElementById('adminPanel').classList.remove('hidden');
                         document.getElementById('homeSection').classList.add('hidden');
                         document.getElementById('formSection').classList.add('hidden');
-                        loadStudents(); // Load data awal
-                        Swal.fire('Sukses', 'Mode Admin Aktif', 'success');
+                        loadStudents(); 
+                        const Toast = Swal.mixin({
+                            toast: true, position: 'top-end', showConfirmButton: false, timer: 3000
+                        });
+                        Toast.fire({ icon: 'success', title: 'Mode Admin Aktif' });
                     } else {
                         Swal.fire('Salah', 'Sandi salah!', 'error');
                     }
@@ -428,22 +601,31 @@
             if(tab === 'siswa') {
                 document.getElementById('tabSiswa').classList.remove('hidden');
                 document.getElementById('tabPaket').classList.add('hidden');
-                document.getElementById('tabBtnSiswa').className = "flex-1 py-2 rounded-md bg-white shadow-sm text-sm font-bold text-gray-700";
-                document.getElementById('tabBtnPaket').className = "flex-1 py-2 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200";
+                document.getElementById('tabBtnSiswa').classList.replace('text-gray-400', 'text-kid-blue');
+                document.getElementById('tabBtnSiswa').classList.replace('border-transparent', 'border-kid-blue');
+                document.getElementById('tabBtnSiswa').classList.add('bg-white', 'shadow-sm');
+                
+                document.getElementById('tabBtnPaket').classList.replace('text-kid-blue', 'text-gray-400');
+                document.getElementById('tabBtnPaket').classList.remove('bg-white', 'shadow-sm');
                 loadStudents();
             } else {
                 document.getElementById('tabSiswa').classList.add('hidden');
                 document.getElementById('tabPaket').classList.remove('hidden');
-                document.getElementById('tabBtnSiswa').className = "flex-1 py-2 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200";
-                document.getElementById('tabBtnPaket').className = "flex-1 py-2 rounded-md bg-white shadow-sm text-sm font-bold text-gray-700";
+                
+                document.getElementById('tabBtnPaket').classList.replace('text-gray-400', 'text-kid-blue');
+                document.getElementById('tabBtnPaket').classList.add('bg-white', 'shadow-sm');
+                
+                document.getElementById('tabBtnSiswa').classList.replace('text-kid-blue', 'text-gray-400');
+                document.getElementById('tabBtnSiswa').classList.replace('border-kid-blue', 'border-transparent');
+                document.getElementById('tabBtnSiswa').classList.remove('bg-white', 'shadow-sm');
                 loadAdminPackages();
             }
         }
 
-        // --- CRUD SISWA (ADMIN) ---
+        // --- CRUD SISWA ---
         async function loadStudents() {
             const tbody = document.getElementById('studentTableBody');
-            tbody.innerHTML = '<tr><td colspan="3" class="text-center py-2">Memuat...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="3" class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-kid-blue"></i></td></tr>';
             
             try {
                 const res = await fetch(`${WEB_APP_URL}?action=getStudents`);
@@ -451,39 +633,36 @@
                 tbody.innerHTML = '';
 
                 if(json.data.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="3" class="text-center py-2 text-gray-400">Belum ada data</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-gray-400 text-xs">Belum ada murid nih</td></tr>';
                     return;
                 }
 
                 json.data.forEach(s => {
                     const tr = document.createElement('tr');
-                    // Format tanggal sederhana
                     const tgl = s['Tanggal Gabung'] ? new Date(s['Tanggal Gabung']).toLocaleDateString('id-ID') : '-';
-                    
+                    tr.className = "hover:bg-blue-50 transition-colors";
                     tr.innerHTML = `
-                        <td class="px-2 py-2 font-mono text-gray-500">${s['ID Siswa']}</td>
-                        <td class="px-2 py-2 font-bold">${s['Nama Anak']}</td>
-                        <td class="px-2 py-2">
-                            <button onclick="reprintCard('${s['Nama Anak']}', '${s['ID Siswa']}', '${s['Paket Les']}', '${tgl}')" class="bg-green-100 text-green-600 px-2 py-1 rounded hover:bg-green-200 text-xs font-bold">
-                                <i class="fa-solid fa-print"></i> Cetak
+                        <td class="px-2 py-3 font-mono text-gray-500 font-bold">${s['ID Siswa']}</td>
+                        <td class="px-2 py-3 font-bold text-gray-700">${s['Nama Anak']}</td>
+                        <td class="px-2 py-3">
+                            <button onclick="reprintCard('${s['Nama Anak']}', '${s['ID Siswa']}', '${s['Paket Les']}', '${tgl}')" class="bg-green-400 text-white px-3 py-1.5 rounded-lg shadow hover:bg-green-500 text-[10px] font-black btn-3d">
+                                <i class="fa-solid fa-print"></i>
                             </button>
                         </td>
                     `;
                     tbody.appendChild(tr);
                 });
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         function reprintCard(nama, id, paket, tgl) {
             generateAndDownloadCard(nama, id, paket, tgl);
         }
 
-        // --- CRUD PAKET (ADMIN) ---
+        // --- CRUD PAKET ---
         async function loadAdminPackages() {
             const tbody = document.getElementById('packageTableBody');
-            tbody.innerHTML = '<tr><td colspan="3" class="text-center py-2">Memuat...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="3" class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-purple-500"></i></td></tr>';
             try {
                 const res = await fetch(`${WEB_APP_URL}?action=getPackages`);
                 const json = await res.json();
@@ -492,10 +671,10 @@
                 json.data.forEach(p => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td class="px-2 py-2 font-bold">${p['Nama Program']}</td>
-                        <td class="px-2 py-2 text-gray-500">${p['Harga']}</td>
-                        <td class="px-2 py-2">
-                            <button onclick="deletePackage('${p['ID Paket']}')" class="text-red-500 hover:text-red-700">
+                        <td class="px-3 py-3 font-bold text-purple-900">${p['Nama Program']}</td>
+                        <td class="px-3 py-3 text-gray-500 font-mono">${p['Harga']}</td>
+                        <td class="px-3 py-3">
+                            <button onclick="deletePackage('${p['ID Paket']}')" class="text-red-400 hover:text-red-600 bg-red-50 p-2 rounded-lg">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
@@ -521,26 +700,42 @@
             e.target.reset();
             showLoader(false);
             loadAdminPackages();
-            loadPackages(); // Update dropdown di form utama juga
+            loadPackages(); 
         }
 
         async function deletePackage(id) {
-            if(!confirm('Hapus paket ini?')) return;
-            showLoader(true);
-            const params = new URLSearchParams();
-            params.append('action', 'deletePackage');
-            params.append('idPaket', id);
-            
-            await fetch(WEB_APP_URL, { method: 'POST', body: params });
-            showLoader(false);
-            loadAdminPackages();
-            loadPackages();
+            Swal.fire({
+                title: 'Hapus?',
+                text: "Paket ini akan dihapus permanen",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    showLoader(true);
+                    const params = new URLSearchParams();
+                    params.append('action', 'deletePackage');
+                    params.append('idPaket', id);
+                    
+                    await fetch(WEB_APP_URL, { method: 'POST', body: params });
+                    showLoader(false);
+                    loadAdminPackages();
+                    loadPackages();
+                }
+            })
         }
 
         function showLoader(show) {
-            document.getElementById('loader').style.display = show ? 'flex' : 'none';
+            const loader = document.getElementById('loader');
+            if(show) {
+                loader.classList.remove('hidden');
+                loader.classList.add('flex');
+            } else {
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+            }
         }
-
     </script>
 </body>
 </html>
